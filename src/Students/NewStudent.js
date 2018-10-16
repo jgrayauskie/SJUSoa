@@ -14,40 +14,49 @@ class NewStudent extends Component {
 
 		this.state = {
 			students: [],
-			newStudent: ''
+			studentName: ''
 		};
 	}
 	handleChange(event) {
-		this.setState({newStudent: event.target.value});
+		this.setState({studentName: event.target.value});
 	}
 	handleSubmit(event) {
-		fetch('http://localhost:5000/students', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				name: this.state.newStudent
+		if(this.state.studentName) {
+			fetch('http://localhost:5000/students', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					name: this.state.studentName
+				})
 			})
-		})
-			.then(() => {
-				this.props.onCreate();
-				this.setState({
-					newStudent: ''
+				.then(() => {
+					this.props.onCreate();
+					this.setState({
+						studentName: ''
+					});
+				})
+				.catch(error => {
+					this.setState({
+						error: 'Oops, something went wrong trying to create a new student, please try again later.'
+					})
 				});
-			});
-
-
+		}
 		event.preventDefault();
 	}
 
+
 	render() {
+		if(this.state.error) {
+			return <div className="danger">{ this.state.error }</div>
+		}
 		return (
 			<div className="Student">
 				<form onSubmit={this.handleSubmit}>
 					<label>
 						Enter New Student Name:
-						<input type="text" value={this.state.newStudent} onChange={this.handleChange} />
+						<input type="text" value={this.state.studentName} onChange={this.handleChange} />
 					</label>
 					<input type="submit" value="Submit" />
 				</form>

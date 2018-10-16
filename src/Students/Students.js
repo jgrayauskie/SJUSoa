@@ -23,7 +23,7 @@ class Students extends Component {
 			})
 			.catch(error => {
 				this.setState({
-					error: 'Something Went Wrong, Try reloading.'
+					error: 'Oops, something went wrong trying to load students, please try again later.'
 				})
 			});
 	}
