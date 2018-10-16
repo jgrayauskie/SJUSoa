@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import fetch from 'isomorphic-fetch';
 
 class NewStudent extends Component {
+	static propTypes = {
+		onCreate: PropTypes.func
+	}
 	constructor(props) {
 		super(props);
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,11 +29,15 @@ class NewStudent extends Component {
 			body: JSON.stringify({
 				name: this.state.newStudent
 			})
-		});
-		this.setState({
-			students: this.state.students.concat([this.state.newStudent]),
-			newStudent: ''
-		});
+		})
+			.then(() => {
+				this.props.onCreate();
+				this.setState({
+					newStudent: ''
+				});
+			});
+
+
 		event.preventDefault();
 	}
 

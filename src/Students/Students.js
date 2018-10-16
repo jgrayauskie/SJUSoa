@@ -10,9 +10,10 @@ class Students extends Component {
 		this.state = {
 			currentStudents: []
 		}
+		this.fetchStudents = this.fetchStudents.bind(this);
 	}
 
-	componentDidMount() {
+	fetchStudents() {
 		fetch('http://localhost:5000/students')
 			.then(response => response.json())
 			.then(students => {
@@ -27,10 +28,14 @@ class Students extends Component {
 			});
 	}
 
+	componentDidMount() {
+		this.fetchStudents();
+	}
+
 	render() {
 		return (
 			<div className="Students">
-				<NewStudent />
+				<NewStudent onCreate={ this.fetchStudents } />
 				<hr />
 				{
 					this.state.error
