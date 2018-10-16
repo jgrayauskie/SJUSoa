@@ -14,16 +14,26 @@ class Students extends Component {
 	}
 
 	fetchStudents() {
-		fetch('http://localhost:5000/students')
+		fetch('http://localhost:5000/discover')
 			.then(response => response.json())
-			.then(students => {
-				this.setState({
-					currentStudents: students
-				});
+			.then(apiData => {
+				console.log(apiData);
+				fetch(apiData.students.read.path)
+					.then(response => response.json())
+					.then(students => {
+						this.setState({
+							currentStudents: students
+						});
+					})
+					.catch(error => {
+						this.setState({
+							error: 'Oops, something went wrong trying to load students, please try again later.'
+						})
+					});
 			})
 			.catch(error => {
 				this.setState({
-					error: 'Oops, something went wrong trying to load students, please try again later.'
+					error: 'Oops, something went wrong trying to load discover for students, please try again later.'
 				})
 			});
 	}
