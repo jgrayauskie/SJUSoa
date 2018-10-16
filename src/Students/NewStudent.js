@@ -22,8 +22,8 @@ class NewStudent extends Component {
 	}
 	handleSubmit(event) {
 		if(this.state.studentName) {
-			fetch('http://localhost:5000/students', {
-				method: 'POST',
+			fetch(this.props.apiData.students.create.path, {
+				method: this.props.apiData.students.create.method,
 				headers: {
 					'Content-Type': 'application/json'
 				},
@@ -39,7 +39,7 @@ class NewStudent extends Component {
 				})
 				.catch(error => {
 					this.setState({
-						error: 'Oops, something went wrong trying to create a new student, please try again later.'
+						error: 'Oops, something went wrong trying to create a new student, please try again later.' + error
 					})
 				});
 		}

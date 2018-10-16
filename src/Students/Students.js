@@ -8,17 +8,23 @@ class Students extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			currentStudents: []
+			currentStudents: [],
+			apiData: {}
 		}
 		this.fetchStudents = this.fetchStudents.bind(this);
 	}
 
 	fetchStudents() {
+		// probably can not make this discover call if apiData exists
 		fetch('http://localhost:5000/discover')
 			.then(response => response.json())
 			.then(apiData => {
-				console.log(apiData);
-				fetch(apiData.students.read.path)
+				this.setState({
+					apiData
+				});
+				const path = apiData.students.read.path;
+				const method = apiData.students.read.method;
+				fetch(path, { method})
 					.then(response => response.json())
 					.then(students => {
 						this.setState({
@@ -46,7 +52,7 @@ class Students extends Component {
 		return (
 			<div className="Students">
 				<h1>Students</h1>
-				<NewStudent onCreate={ this.fetchStudents } />
+				<NewStudent onCreate={ this.fetchStudents } apiData={ this.state.apiData }/>
 				{
 					this.state.error
 						? <span className="danger">{ this.state.error } </span>

@@ -22,7 +22,7 @@ class CurrentProfessors extends Component {
 						<li key={ index }>
 							<div>{ professor.name }</div>
 							<div>{ professor.coursesTaught.map(course => {
-										return <div> { `*${course.title}(${course.code}) is taught in ${course.semester ? 'Spring' : 'Fall'} semestor.` }</div>
+										return <div key={ course.code }> { `*${course.title}(${course.code}) is taught in ${course.semester ? 'Spring' : 'Fall'} semestor.` }</div>
 									})
 								}
 							</div>
