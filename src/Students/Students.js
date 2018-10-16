@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import fetch from 'isomorphic-fetch';
 import NewStudent from './NewStudent';
 import CurrentStudents from './CurrentStudents';
+import './Students.css';
 
 class Students extends Component {
 	constructor(props) {
@@ -13,11 +14,17 @@ class Students extends Component {
 
 	componentDidMount() {
 		fetch('http://localhost:5000/students')
+			.then(response => response.json())
 			.then(students => {
 				this.setState({
 					currentStudents: students
-				})
+				});
 			})
+			.catch(error => {
+				this.setState({
+					error: 'Something Went Wrong, Try reloading.'
+				})
+			});
 	}
 
 	render() {
@@ -25,7 +32,11 @@ class Students extends Component {
 			<div className="Students">
 				<NewStudent />
 				<hr />
-				<CurrentStudents currentStudents={ this.state.currentStudents }/>
+				{
+					this.state.error
+						? <span className="danger">{ this.state.error } </span>
+						: <CurrentStudents currentStudents={ this.state.currentStudents }/>
+				}
 			</div>
 		);
 	}

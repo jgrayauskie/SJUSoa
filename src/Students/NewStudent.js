@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import fetch from 'isomorphic-fetch';
 
 class NewStudent extends Component {
 	constructor(props) {
@@ -15,6 +16,15 @@ class NewStudent extends Component {
 		this.setState({newStudent: event.target.value});
 	}
 	handleSubmit(event) {
+		fetch('http://localhost:5000/students', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				name: this.state.newStudent
+			})
+		});
 		this.setState({
 			students: this.state.students.concat([this.state.newStudent]),
 			newStudent: ''

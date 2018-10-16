@@ -8,8 +8,8 @@ class CurrentStudents extends Component {
 				Current List of Students:
 				<ul>
 				{
-					this.props.students.map(student => (
-						<li>{ student }</li>
+					this.props.currentStudents.map((student, index) => (
+						<li key={ index }>{ student.name }</li>
 					))
 				}
 				</ul>
@@ -19,11 +19,11 @@ class CurrentStudents extends Component {
 }
 
 CurrentStudents.propTypes = {
-	students: PropTypes.array
+	currentStudents: PropTypes.array
 };
 
 CurrentStudents.defaultProps = {
-	students: []
+	currentStudents: []
 };
 
 export default CurrentStudents;
