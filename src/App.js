@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Students from './Students/Students';
+import Students from './students/Students';
+import Professors from './professors/Professors';
 import './App.css';
 
 class App extends Component {
@@ -7,6 +8,8 @@ class App extends Component {
     return (
       <div className="App">
         <Students />
+        <hr />
+        <Professors />
       </div>
     );
   }

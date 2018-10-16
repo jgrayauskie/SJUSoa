@@ -35,8 +35,8 @@ class Students extends Component {
 	render() {
 		return (
 			<div className="Students">
+				<h1>Students</h1>
 				<NewStudent onCreate={ this.fetchStudents } />
-				<hr />
 				{
 					this.state.error
 						? <span className="danger">{ this.state.error } </span>
