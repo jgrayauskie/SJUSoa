@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import CurrentStudent from './CurrentStudent';
 
 class CurrentStudents extends Component {
 	static propTypes = {
@@ -19,7 +20,7 @@ class CurrentStudents extends Component {
 				<ul>
 				{
 					this.props.currentStudents.map((student, index) => (
-						<li key={ index }>{ student.name }</li>
+						<CurrentStudent index={ index} student={ student } />
 					))
 				}
 				</ul>

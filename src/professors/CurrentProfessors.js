@@ -20,7 +20,7 @@ class CurrentProfessors extends Component {
 				{
 					this.props.currentProfessors.map((professor, index) => (
 						<li key={ index }>
-							<div>{ professor.name }</div>
+							<div><strong>ID:{ professor.id } | Name:{ professor.name }</strong></div>
 							<div>{ professor.coursesTaught.map(course => {
 										return <div key={ course.code }> { `*${course.title}(${course.code}) is taught in ${course.semester ? 'Spring' : 'Fall'} semestor.` }</div>
 									})
